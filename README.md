@@ -1,15 +1,54 @@
-# Local-RAG-Explorer
-A Private, Containerized, and Scalable AI Document Assistant.
+# Local-RAG Explorer: Full-Stack AI & DevOps Project
 
-## Project Overview
-Local-RAG Explorer is a "Full-Stack AI" web application designed to allow users to interact with their private documents (PDFs) securely and efficiently. The system leverages RAG (Retrieval-Augmented Generation) architecture: instead of sending entire documents to external AI providers, the app extracts only the relevant sections and processes them locally, ensuring data privacy and zero operational costs.
+A private, secure, and fully orchestrated document assistant built during an intensive 5-day sprint. This project demonstrates the integration of Generative AI with modern Cloud-Native infrastructure.
 
-## The Tech Stack
+## 🚀 Key Features
+- **Local RAG Pipeline:** Uses LangChain to process PDFs locally, ensuring data privacy.
+- **AI Engine:** Powered by Ollama (Llama 3.2 / Smollm) for cost-free, offline inference.
+- **Interactive UI:** A clean chat interface built with Streamlit.
+- **Containerized:** Fully Dockerized with optimized "slim" images for low-resource environments.
+- **Orchestrated:** Deployed and managed via Kubernetes (Kind) for scalability and resilience.
 
-- AI Orchestration: Built with LangChain to manage data workflows and Ollama to run Large Language Models (LLMs) locally (with an optional Groq cloud integration for low-spec hardware optimization).
-- Semantic Brain: Utilizes a vector database (ChromaDB) to transform text into mathematical embeddings, enabling instant and context-aware information retrieval.
-- User Interface: A sleek, reactive chat interface developed with Streamlit.
-- Infrastructure & DevOps: The entire application is containerized using Docker for cross-platform portability and orchestrated with Kubernetes, simulating a production-ready environment capable of scaling based on user demand.
+## 🛠️ Tech Stack
+- **AI/LLM:** LangChain, Ollama, ChromaDB (Vector Store)
+- **Frontend:** Streamlit
+- **DevOps:** Docker, Kubernetes (Kind), Kubectl
+- **Environment:** Python 3.10-slim
 
-## Value Proposition
-This project bridges the gap between Generative AI and modern DevOps practices. It solves the critical issue of data confidentiality (documents never leave the local environment) and eliminates the need for expensive proprietary API subscriptions.
+## 💻 Quick Command Reference
+
+### 1. Setup AI (Ollama)
+```bash
+ollama pull llama3.2              # Download the LLM
+ollama list                       # Check available models
+```
+
+### 2. Python Environment
+```bash
+python -m venv rag_env            # Create virtual env
+source rag_env/bin/activate       # Activate (Linux)
+pip install -r requirements.txt   # Install dependencies
+```
+
+### 3. Docker (Packaging)
+```bash
+docker build -t mio-rag-app .     # Build the image
+docker run -p 8501:8501 mio-rag-app # Run container locally
+```
+
+### 4. Kubernetes (Orchestration)
+```bash
+kind create cluster --name mio-rag-cluster         # Create local cluster
+kind load docker-image mio-rag-app:latest --name mio-rag-cluster # Load image
+kubectl apply -f deployment.yaml                   # Deploy app
+kubectl apply -f service.yaml                      # Create service
+kubectl get pods -w                                # Monitor status
+kubectl port-forward service/rag-ai-service 8501:80 # Access via browser
+```
+
+### 5. Cleanup
+```bash
+kubectl delete -f deployment.yaml                  # Stop the app
+kind delete cluster --name mio-rag-cluster         # Delete the cluster
+docker system prune                                # Free disk space
+```

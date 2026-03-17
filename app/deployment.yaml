@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-app-deployment
+spec:
+  replicas: 1 # Inizia con una sola copia per risparmiare RAM
+  selector:
+    matchLabels:
+      app: rag-ai
+  template:
+    metadata:
+      labels:
+        app: rag-ai
+    spec:
+      containers:
+      - name: rag-container
+        image: mio-rag-app:latest
+        imagePullPolicy: Never # Dice a K8s di usare l'immagine che hai appena buildato localmente
+        ports:
+        - containerPort: 8501
