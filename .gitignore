@@ -1,9 +1,3 @@
-olds/doc/
-*.pdf
-*.docx
-*.xlsx
-*.pptx
-*.odt
-*.ods
-*.odp
-
+.env
+/F1RAG
+*.pyc
